@@ -230,33 +230,36 @@ func login() {
 		clear()
 		logo()
 		fmt.Println("Anti-SS is currently in maintenance. More updates on: https://discord.gg/abNudGMjbD")
-	}
-	if strings.Contains(loginDB, user+":::") {
-		if strings.Contains(loginDB, user+":::"+pass+":::0") {
-			clear()
-			logo()
-			fmt.Println("Succesfully logged in")
-			time.Sleep(2 * time.Second)
-			bypassmenu()
-		}
-		if strings.Contains(loginDB, user+":::"+pass+":::1") {
-			clear()
-			logo()
-			fmt.Println("This account has been blacklisted. If you believe this is a mistake please contact the reseller")
-			time.Sleep(5 * time.Second)
+		time.Sleep(5 * time.Second)
+		os.Exit(3)
+	} else {
+		if strings.Contains(loginDB, user+":::") {
+			if strings.Contains(loginDB, user+":::"+pass+":::0") {
+				clear()
+				logo()
+				fmt.Println("Succesfully logged in")
+				time.Sleep(2 * time.Second)
+				bypassmenu()
+			}
+			if strings.Contains(loginDB, user+":::"+pass+":::1") {
+				clear()
+				logo()
+				fmt.Println("This account has been blacklisted. If you believe this is a mistake please contact the reseller")
+				time.Sleep(5 * time.Second)
+			} else {
+				clear()
+				logo()
+				fmt.Println("Password is wrong")
+				time.Sleep(1 * time.Second)
+				login()
+			}
 		} else {
 			clear()
 			logo()
-			fmt.Println("Password is wrong")
+			fmt.Println("User doesn't exist")
 			time.Sleep(1 * time.Second)
 			login()
 		}
-	} else {
-		clear()
-		logo()
-		fmt.Println("User doesn't exist")
-		time.Sleep(1 * time.Second)
-		login()
 	}
 }
 
