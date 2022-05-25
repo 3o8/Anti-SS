@@ -229,7 +229,7 @@ func login() {
 	if strings.Contains(loginDB, "APP DISABLED") {
 		clear()
 		logo()
-		fmt.Println("Anti-SS is currently in maintenance")
+		fmt.Println("Anti-SS is currently in maintenance. More updates on: https://discord.gg/abNudGMjbD")
 	}
 	if strings.Contains(loginDB, user+":::") {
 		if strings.Contains(loginDB, user+":::"+pass+":::0") {
